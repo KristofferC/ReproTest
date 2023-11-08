@@ -1,0 +1,7 @@
+name = "ReproTest"
+uuid = "0592360d-d79b-465c-bbe3-56b882ef6ea9"
+authors = ["Kristoffer <kcarlsson89@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
