@@ -7,10 +7,16 @@ using Libdl
 @show @blasfunc(dlarfg_)
 @show BLAS.vendor()
 @show BLAS.get_num_threads()
-@show LinearAlgebra.BLAS.lbt_get_config()
+@show config = LinearAlgebra.BLAS.lbt_get_config()
+for lib in config.loaded_libs
+    display(lib)
+end
 @show Libdl.dlpath(liblapack)
 lapack_ptr = Libdl.dlopen(liblapack)
 @show Libdl.dlsym(lapack_ptr, @blasfunc(dlarfg_))
+@show get(ENV, "LD_LIBRARY_PATH", nothing)
+
+
 
 function larfg!(x::AbstractVector{Float64})
     N    = BlasInt(length(x))
