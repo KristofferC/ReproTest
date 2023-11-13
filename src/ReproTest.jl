@@ -20,14 +20,14 @@ lapack_ptr = Libdl.dlopen(liblapack)
 
 function larfg!(x::AbstractVector{Float64})
     N    = BlasInt(length(x))
+    α    = Ref{Float64}(x[1])
     incx = stride(x, 1)
     τ    = Ref{Float64}(0)
     ccall((@blasfunc(dlarfg_), liblapack), Cvoid,
-        (Ref{BlasInt}, Ptr{Float64}, Ptr{Float64}, Ref{BlasInt}, Ref{Float64}),
-        N, x, pointer(x, 2), incx, τ)
-    β = x[1]
+        (Ref{BlasInt}, Ref{Float64}, Ptr{Float64}, Ref{BlasInt}, Ref{Float64}),
+        N, α, pointer(x, 2), incx, τ)
     @inbounds x[1] = one(Float64)
-    return τ[], β
+    return τ[]
 end
 
 
